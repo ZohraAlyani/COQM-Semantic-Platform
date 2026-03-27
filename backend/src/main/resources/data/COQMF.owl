@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#"
+     xml:base="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:dolce="http://www.loa-cnr.it/ontologies/DOLCE-Lite.owl#">
+
+  <owl:Ontology rdf:about="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm">
+    <owl:imports rdf:resource="http://www.loa-cnr.it/ontologies/DOLCE-Lite.owl"/>
+  </owl:Ontology>
+
+  <!-- COQMF Classes -->
+  <owl:Class rdf:about="#Building"/>
+  <owl:Class rdf:about="#BusinessProcess"/>
+  <owl:Class rdf:about="#CollectiveObjective"/>
+  <owl:Class rdf:about="#CommunicationNetwork"/>
+  <owl:Class rdf:about="#CoreProcess"/>
+  <owl:Class rdf:about="#DesignDocument"/>
+  <owl:Class rdf:about="#Equipment"/>
+  <owl:Class rdf:about="#ExternalProcess"/>
+  <owl:Class rdf:about="#ExternalRisk"/>
+  <owl:Class rdf:about="#FinancialRisk"/>
+  <owl:Class rdf:about="#Form"/>
+  <owl:Class rdf:about="#HumanResource"/>
+  <owl:Class rdf:about="#ImmaterialResource"/>
+  <owl:Class rdf:about="#IndividualObjective"/>
+  <owl:Class rdf:about="#Infrastructure"/>
+  <owl:Class rdf:about="#Intention"/>
+  <owl:Class rdf:about="#InterActivityTemporalConstraint"/>
+  <owl:Class rdf:about="#InterProcessTemporalConstraint"/>
+  <owl:Class rdf:about="#InternalProcess"/>
+  <owl:Class rdf:about="#InternalRisk"/>
+  <owl:Class rdf:about="#IntraActivityTimeConstraint"/>
+  <owl:Class rdf:about="#Knowledge"/>
+  <owl:Class rdf:about="#LegalRequirements"/>
+  <owl:Class rdf:about="#ManagementProcess"/>
+  <owl:Class rdf:about="#MaterialResource"/>
+  <owl:Class rdf:about="#NegativeInternalRisk"/>
+  <owl:Class rdf:about="#Norm"/>
+  <owl:Class rdf:about="#Objective"/>
+  <owl:Class rdf:about="#OperationalIndicator"/>
+  <owl:Class rdf:about="#OperationalKnowledge"/>
+  <owl:Class rdf:about="#OperationalObjective"/>
+  <owl:Class rdf:about="#OperationalProcess"/>
+  <owl:Class rdf:about="#OperationalRisk"/>
+  <owl:Class rdf:about="#Opportunity"/>
+  <owl:Class rdf:about="#OrganizationalInfrastructure"/>
+  <owl:Class rdf:about="#OrganizationalKnowledge"/>
+  <owl:Class rdf:about="#OrganizationalObjective"/>
+  <owl:Class rdf:about="#PartialExternalProcess"/>
+  <owl:Class rdf:about="#PerformanceIndicator"/>
+  <owl:Class rdf:about="#PhysicalInfrastructure"/>
+  <owl:Class rdf:about="#PositiveInternalRisk"/>
+  <owl:Class rdf:about="#QualitativeIndicator"/>
+  <owl:Class rdf:about="#QualityArtefact"/>
+  <owl:Class rdf:about="#QualityDescription"/>
+  <owl:Class rdf:about="#QualityDocument"/>
+  <owl:Class rdf:about="#QualityIndicator"/>
+  <owl:Class rdf:about="#QualityInformationSystem"/>
+  <owl:Class rdf:about="#QualityObjective"/>
+  <owl:Class rdf:about="#QualityPlan"/>
+  <owl:Class rdf:about="#QuantitativeIndicator"/>
+  <owl:Class rdf:about="#Record"/>
+  <owl:Class rdf:about="#RegulatoryRequirements"/>
+  <owl:Class rdf:about="#Resource"/>
+  <owl:Class rdf:about="#Risk"/>
+  <owl:Class rdf:about="#SensitiveBusinessProcess"/>
+  <owl:Class rdf:about="#SpecificationDocument"/>
+  <owl:Class rdf:about="#StrategicIndicator"/>
+  <owl:Class rdf:about="#StrategicKnowledge"/>
+  <owl:Class rdf:about="#StrategicObjective"/>
+  <owl:Class rdf:about="#StrategicProcess"/>
+  <owl:Class rdf:about="#StrategicRisk"/>
+  <owl:Class rdf:about="#SupportProcess"/>
+  <owl:Class rdf:about="#Threat"/>
+  <owl:Class rdf:about="#TimeDate"/>
+  <owl:Class rdf:about="#TimeDuration"/>
+
+  <!-- SubClassOf relations -->
+  <owl:Class rdf:about="#Building">
+    <rdfs:subClassOf rdf:resource="#PhysicalInfrastructure"/>
+  </owl:Class>
+  <owl:Class rdf:about="#BusinessProcess">
+    <rdfs:subClassOf rdf:resource="http://www.loa-cnr.it/ontologies/DOLCE-Lite.owl#accomplishment"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasObjective"/>
+        <owl:someValuesFrom rdf:resource="#Objective"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#CollectiveObjective">
+    <rdfs:subClassOf rdf:resource="#Objective"/>
+  </owl:Class>
+  <owl:Class rdf:about="#CommunicationNetwork">
+    <rdfs:subClassOf rdf:resource="#OrganizationalInfrastructure"/>
+  </owl:Class>
+  <owl:Class rdf:about="#CoreProcess">
+    <rdfs:subClassOf rdf:resource="#BusinessProcess"/>
+  </owl:Class>
+  <owl:Class rdf:about="#DesignDocument">
+    <rdfs:subClassOf rdf:resource="#QualityDocument"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Equipment">
+    <rdfs:subClassOf rdf:resource="#PhysicalInfrastructure"/>
+  </owl:Class>
+  <owl:Class rdf:about="#ExternalProcess">
+    <rdfs:subClassOf rdf:resource="#BusinessProcess"/>
+  </owl:Class>
+  <owl:Class rdf:about="#ExternalRisk">
+    <rdfs:subClassOf rdf:resource="#Risk"/>
+  </owl:Class>
+  <owl:Class rdf:about="#FinancialRisk">
+    <rdfs:subClassOf rdf:resource="#Risk"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Form">
+    <rdfs:subClassOf rdf:resource="#QualityDescription"/>
+  </owl:Class>
+  <owl:Class rdf:about="#HumanResource">
+    <rdfs:subClassOf rdf:resource="#ImmaterialResource"/>
+  </owl:Class>
+  <owl:Class rdf:about="#ImmaterialResource">
+    <rdfs:subClassOf rdf:resource="#Resource"/>
+  </owl:Class>
+  <owl:Class rdf:about="#IndividualObjective">
+    <rdfs:subClassOf rdf:resource="#Objective"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Infrastructure">
+    <rdfs:subClassOf rdf:resource="#MaterialResource"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Intention">
+    <rdfs:subClassOf rdf:resource="http://www.loa-cnr.it/ontologies/DOLCE-Lite.owl#accomplishment"/>
+  </owl:Class>
+  <owl:Class rdf:about="#InterActivityTemporalConstraint">
+    <rdfs:subClassOf rdf:resource="http://www.loa-cnr.it/ontologies/DOLCE-Lite.owl#temporal-quality"/>
+  </owl:Class>
+  <owl:Class rdf:about="#InterProcessTemporalConstraint">
+    <rdfs:subClassOf rdf:resource="http://www.loa-cnr.it/ontologies/DOLCE-Lite.owl#temporal-quality"/>
+  </owl:Class>
+  <owl:Class rdf:about="#InternalProcess">
+    <rdfs:subClassOf rdf:resource="#BusinessProcess"/>
+  </owl:Class>
+  <owl:Class rdf:about="#InternalRisk">
+    <rdfs:subClassOf rdf:resource="#Risk"/>
+  </owl:Class>
+  <owl:Class rdf:about="#IntraActivityTimeConstraint">
+    <rdfs:subClassOf rdf:resource="http://www.loa-cnr.it/ontologies/DOLCE-Lite.owl#temporal-quality"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Knowledge">
+    <rdfs:subClassOf rdf:resource="http://www.loa-cnr.it/ontologies/DOLCE-Lite.owl#state"/>
+  </owl:Class>
+  <owl:Class rdf:about="#LegalRequirements">
+    <rdfs:subClassOf rdf:resource="#QualityDescription"/>
+  </owl:Class>
+  <owl:Class rdf:about="#ManagementProcess">
+    <rdfs:subClassOf rdf:resource="#BusinessProcess"/>
+  </owl:Class>
+  <owl:Class rdf:about="#MaterialResource">
+    <rdfs:subClassOf rdf:resource="#Resource"/>
+  </owl:Class>
+  <owl:Class rdf:about="#NegativeInternalRisk">
+    <rdfs:subClassOf rdf:resource="#InternalRisk"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Norm">
+    <rdfs:subClassOf rdf:resource="#QualityDescription"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Objective">
+    <rdfs:subClassOf rdf:resource="#Intention"/>
+  </owl:Class>
+  <owl:Class rdf:about="#OperationalIndicator">
+    <rdfs:subClassOf rdf:resource="#PerformanceIndicator"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#measures"/>
+        <owl:allValuesFrom rdf:resource="#OperationalProcess"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#OperationalKnowledge">
+    <rdfs:subClassOf rdf:resource="#Knowledge"/>
+  </owl:Class>
+  <owl:Class rdf:about="#OperationalObjective">
+    <rdfs:subClassOf rdf:resource="#OrganizationalObjective"/>
+  </owl:Class>
+  <owl:Class rdf:about="#OperationalProcess">
+    <rdfs:subClassOf rdf:resource="#BusinessProcess"/>
+  </owl:Class>
+  <owl:Class rdf:about="#OperationalRisk">
+    <rdfs:subClassOf rdf:resource="#Risk"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Opportunity">
+    <rdfs:subClassOf rdf:resource="#ExternalRisk"/>
+  </owl:Class>
+  <owl:Class rdf:about="#OrganizationalInfrastructure">
+    <rdfs:subClassOf rdf:resource="#Infrastructure"/>
+  </owl:Class>
+  <owl:Class rdf:about="#OrganizationalKnowledge">
+    <rdfs:subClassOf rdf:resource="#Knowledge"/>
+  </owl:Class>
+  <owl:Class rdf:about="#OrganizationalObjective">
+    <rdfs:subClassOf rdf:resource="#Objective"/>
+  </owl:Class>
+  <owl:Class rdf:about="#PartialExternalProcess">
+    <rdfs:subClassOf rdf:resource="#BusinessProcess"/>
+  </owl:Class>
+  <owl:Class rdf:about="#PerformanceIndicator">
+    <rdfs:subClassOf rdf:resource="http://www.loa-cnr.it/ontologies/DOLCE-Lite.owl#physical-quality"/>
+  </owl:Class>
+  <owl:Class rdf:about="#PhysicalInfrastructure">
+    <rdfs:subClassOf rdf:resource="#Infrastructure"/>
+  </owl:Class>
+  <owl:Class rdf:about="#PositiveInternalRisk">
+    <rdfs:subClassOf rdf:resource="#InternalRisk"/>
+  </owl:Class>
+  <owl:Class rdf:about="#QualitativeIndicator">
+    <rdfs:subClassOf rdf:resource="#QualityIndicator"/>
+  </owl:Class>
+  <owl:Class rdf:about="#QualityArtefact">
+    <rdfs:subClassOf rdf:resource="#ImmaterialResource"/>
+  </owl:Class>
+  <owl:Class rdf:about="#QualityDescription">
+    <rdfs:subClassOf rdf:resource="#QualityArtefact"/>
+  </owl:Class>
+  <owl:Class rdf:about="#QualityDocument">
+    <rdfs:subClassOf rdf:resource="#QualityArtefact"/>
+  </owl:Class>
+  <owl:Class rdf:about="#QualityIndicator">
+    <rdfs:subClassOf rdf:resource="#PerformanceIndicator"/>
+  </owl:Class>
+  <owl:Class rdf:about="#QualityInformationSystem">
+    <rdfs:subClassOf rdf:resource="#OrganizationalInfrastructure"/>
+  </owl:Class>
+  <owl:Class rdf:about="#QualityObjective">
+    <rdfs:subClassOf rdf:resource="#OrganizationalObjective"/>
+  </owl:Class>
+  <owl:Class rdf:about="#QualityPlan">
+    <rdfs:subClassOf rdf:resource="#QualityDocument"/>
+  </owl:Class>
+  <owl:Class rdf:about="#QuantitativeIndicator">
+    <rdfs:subClassOf rdf:resource="#QualityIndicator"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Record">
+    <rdfs:subClassOf rdf:resource="#QualityDocument"/>
+  </owl:Class>
+  <owl:Class rdf:about="#RegulatoryRequirements">
+    <rdfs:subClassOf rdf:resource="#QualityDescription"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Resource">
+    <rdfs:subClassOf rdf:resource="http://www.loa-cnr.it/ontologies/DOLCE-Lite.owl#physical-endurant"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Risk">
+    <rdfs:subClassOf rdf:resource="http://www.loa-cnr.it/ontologies/DOLCE-Lite.owl#abstract-quality"/>
+  </owl:Class>
+  <owl:Class rdf:about="#SensitiveBusinessProcess">
+    <rdfs:subClassOf rdf:resource="#BusinessProcess"/>
+  </owl:Class>
+  <owl:Class rdf:about="#SpecificationDocument">
+    <rdfs:subClassOf rdf:resource="#QualityDocument"/>
+  </owl:Class>
+  <owl:Class rdf:about="#StrategicIndicator">
+    <rdfs:subClassOf rdf:resource="#PerformanceIndicator"/>
+  </owl:Class>
+  <owl:Class rdf:about="#StrategicKnowledge">
+    <rdfs:subClassOf rdf:resource="#Knowledge"/>
+  </owl:Class>
+  <owl:Class rdf:about="#StrategicObjective">
+    <rdfs:subClassOf rdf:resource="#OrganizationalObjective"/>
+  </owl:Class>
+  <owl:Class rdf:about="#StrategicProcess">
+    <rdfs:subClassOf rdf:resource="#BusinessProcess"/>
+  </owl:Class>
+  <owl:Class rdf:about="#StrategicRisk">
+    <rdfs:subClassOf rdf:resource="#Risk"/>
+  </owl:Class>
+  <owl:Class rdf:about="#SupportProcess">
+    <rdfs:subClassOf rdf:resource="#BusinessProcess"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Threat">
+    <rdfs:subClassOf rdf:resource="#ExternalRisk"/>
+  </owl:Class>
+  <owl:Class rdf:about="#TimeDate">
+    <rdfs:subClassOf rdf:resource="http://www.loa-cnr.it/ontologies/DOLCE-Lite.owl#temporal-quality"/>
+  </owl:Class>
+  <owl:Class rdf:about="#TimeDuration">
+    <rdfs:subClassOf rdf:resource="http://www.loa-cnr.it/ontologies/DOLCE-Lite.owl#temporal-quality"/>
+  </owl:Class>
+
+  <!-- DisjointClasses -->
+  <owl:Class rdf:about="#CollectiveObjective">
+    <owl:disjointWith rdf:resource="#IndividualObjective"/>
+  </owl:Class>
+  <owl:Class rdf:about="#OperationalIndicator">
+    <owl:disjointWith rdf:resource="#StrategicIndicator"/>
+  </owl:Class>
+  <owl:Class rdf:about="#OperationalObjective">
+    <owl:disjointWith rdf:resource="#StrategicObjective"/>
+  </owl:Class>
+
+  <!-- Object Properties -->
+  <owl:ObjectProperty rdf:about="#assessesObjective">
+    <rdfs:domain rdf:resource="#PerformanceIndicator"/>
+    <rdfs:range rdf:resource="#Objective"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#documentedBy">
+    <rdfs:domain rdf:resource="#BusinessProcess"/>
+    <rdfs:range rdf:resource="#QualityDocument"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#enablesObjective">
+    <rdfs:domain rdf:resource="#Knowledge"/>
+    <rdfs:range rdf:resource="#Objective"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#hasForRisk">
+    <rdfs:domain rdf:resource="#BusinessProcess"/>
+    <rdfs:range rdf:resource="#Risk"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#hasObjective">
+    <owl:inverseOf rdf:resource="#isObjectiveOf"/>
+    <rdfs:domain rdf:resource="#BusinessProcess"/>
+    <rdfs:range rdf:resource="#Objective"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#hasTemporalQuality">
+    <rdfs:domain rdf:resource="#BusinessProcess"/>
+    <rdfs:range rdf:resource="http://www.loa-cnr.it/ontologies/DOLCE-Lite.owl#temporal-quality"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#indicatesRisk">
+    <rdfs:domain rdf:resource="#PerformanceIndicator"/>
+    <rdfs:range rdf:resource="#Risk"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#isDocumentedIn">
+    <rdfs:domain rdf:resource="#Knowledge"/>
+    <rdfs:range rdf:resource="#QualityDocument"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#isMeasuredBy">
+    <rdfs:domain rdf:resource="#Objective"/>
+    <rdfs:range rdf:resource="#PerformanceIndicator"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#isObjectiveOf">
+    <rdfs:domain rdf:resource="#Objective"/>
+    <rdfs:range rdf:resource="#BusinessProcess"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#isTemporalQualityOf">
+    <rdfs:domain rdf:resource="http://www.loa-cnr.it/ontologies/DOLCE-Lite.owl#temporal-quality"/>
+    <rdfs:range rdf:resource="#BusinessProcess"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#isUsedByProcess">
+    <owl:inverseOf rdf:resource="#usesResource"/>
+    <rdfs:domain rdf:resource="#Resource"/>
+    <rdfs:range rdf:resource="#BusinessProcess"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#measures">
+    <rdfs:domain rdf:resource="#PerformanceIndicator"/>
+    <rdfs:range rdf:resource="#Objective"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#supportsProcess">
+    <rdfs:domain rdf:resource="#Knowledge"/>
+    <rdfs:range rdf:resource="#BusinessProcess"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#usesResource">
+    <rdfs:domain rdf:resource="#BusinessProcess"/>
+    <rdfs:range rdf:resource="#Resource"/>
+  </owl:ObjectProperty>
+
+  <!-- Data Properties -->
+  <owl:DatatypeProperty rdf:about="#hasUnit"/>
+  <owl:DatatypeProperty rdf:about="#hasValue"/>
+
+  <!-- Named Individuals with explicit rdf:type (format reconnu par Jena) -->
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#Doc_Goods_Receipt">
+    <rdf:type rdf:resource="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#QualityDocument"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#Doc_Inventory_Record">
+    <rdf:type rdf:resource="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#QualityDocument"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#Doc_Purchase_Order">
+    <rdf:type rdf:resource="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#QualityDocument"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#Doc_Purchase_Request">
+    <rdf:type rdf:resource="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#QualityDocument"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#Doc_Quotation_Request">
+    <rdf:type rdf:resource="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#QualityDocument"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#Doc_Supplier_List">
+    <rdf:type rdf:resource="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#QualityDocument"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#KPI_Delivery_Time">
+    <rdf:type rdf:resource="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#PerformanceIndicator"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#KPI_Number_Complaints">
+    <rdf:type rdf:resource="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#PerformanceIndicator"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#KPI_Purchase_Cost">
+    <rdf:type rdf:resource="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#PerformanceIndicator"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#KPI_Satisfaction_Rate">
+    <rdf:type rdf:resource="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#PerformanceIndicator"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#KPI_Transport_Cost">
+    <rdf:type rdf:resource="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#PerformanceIndicator"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#KPI_Validation_Time_Level1">
+    <rdf:type rdf:resource="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#PerformanceIndicator"/>
+    <hasTemporalQuality rdf:resource="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#TD_Max_Validation_L1_1Day"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#KPI_Validation_Time_Level2">
+    <rdf:type rdf:resource="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#PerformanceIndicator"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#Obj_OnTime_Delivery">
+    <rdf:type rdf:resource="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#Objective"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#Obj_Optimize_Supplier_Selection">
+    <rdf:type rdf:resource="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#Objective"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#Proc_Purchase_Logistics">
+    <rdf:type rdf:resource="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#BusinessProcess"/>
+    <documentedBy rdf:resource="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#Doc_Purchase_Request"/>
+    <hasForRisk rdf:resource="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#Risk_Procurement_Delay"/>
+    <hasObjective rdf:resource="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#Obj_OnTime_Delivery"/>
+    <isMeasuredBy rdf:resource="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#KPI_Validation_Time_Level1"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#Risk_Procurement_Delay">
+    <rdf:type rdf:resource="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#Risk"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#Risk_Project_Delay">
+    <rdf:type rdf:resource="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#Risk"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#Risk_Reputation_Damage">
+    <rdf:type rdf:resource="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#Risk"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#TD_Max_Validation_L1_1Day">
+    <rdf:type rdf:resource="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#TimeDuration"/>
+  </owl:NamedIndividual>
+  <owl:NamedIndividual rdf:about="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#TD_Max_Validation_L2_2Days">
+    <rdf:type rdf:resource="http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#TimeDuration"/>
+  </owl:NamedIndividual>
+
+</rdf:RDF>
