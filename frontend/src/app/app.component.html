@@ -1,0 +1,271 @@
+<div class="app-container">
+  <header class="header">
+    <div class="logo">
+      <span class="icon">&#x1F552;</span>
+      <h1>COQM Procurement Dashboard</h1>
+      <span class="badge">API Explorer</span>
+    </div>
+    <div class="actions">
+      <a href="mailto:zohra.alyani@gmail.com" class="contact-email">zohra.alyani&#64;gmail.com</a>
+      <div class="user-avatar" title="User">
+        <img src="user.jpeg" alt="User" />
+      </div>
+    </div>
+  </header>
+
+  <div class="api-bar">
+    <span class="api-pill">GET /summary</span>
+    <span class="api-pill">GET /classes</span>
+    <span class="api-pill">GET /classes/&#123;name&#125;/instances</span>
+    <span class="api-pill">GET /object-properties</span>
+    <span class="api-pill">GET /datatype-properties</span>
+    <span class="api-pill">GET /triples</span>
+    <span class="api-pill">GET /diagnostic</span>
+    <span class="api-pill">POST /sparql</span>
+  </div>
+  <nav class="tabs">
+    <button class="tab" [class.active]="activeTab === 'summary'" (click)="setTab('summary')">Summary</button>
+    <button class="tab" [class.active]="activeTab === 'classes'" (click)="setTab('classes')">Classes</button>
+    <button class="tab" [class.active]="activeTab === 'properties'" (click)="setTab('properties')">Properties</button>
+    <button class="tab" [class.active]="activeTab === 'triples'" (click)="setTab('triples')">Triples</button>
+    <button class="tab" [class.active]="activeTab === 'diagnostic'" (click)="setTab('diagnostic')">Diagnostic</button>
+    <button class="tab" [class.active]="activeTab === 'sparql'" (click)="setTab('sparql')">SPARQL</button>
+  </nav>
+
+  <main class="content">
+    <!-- TAB: Summary -->
+    <section *ngIf="activeTab === 'summary'" class="section summary-section">
+      <h2>Ontology Summary</h2>
+      <div *ngIf="loading['summary']" class="loader">
+        <span class="spinner"></span> Loading...
+      </div>
+      <div *ngIf="error['summary']" class="error">{{ error['summary'] }}</div>
+      <div *ngIf="summary && !loading['summary']" class="summary-grid">
+        <div class="stat-card stat-blue">
+          <span class="stat-value">{{ summary.classesCount }}</span>
+          <span class="stat-label">Classes</span>
+        </div>
+        <div class="stat-card stat-green">
+          <span class="stat-value">{{ summary.individualsCount }}</span>
+          <span class="stat-label">Individuals</span>
+        </div>
+        <div class="stat-card stat-orange">
+          <span class="stat-value">{{ summary.objectPropertiesCount }}</span>
+          <span class="stat-label">Object Properties</span>
+        </div>
+        <div class="stat-card stat-purple">
+          <span class="stat-value">{{ summary.datatypePropertiesCount }}</span>
+          <span class="stat-label">Datatype Properties</span>
+        </div>
+        <div class="stat-card stat-red wide">
+          <span class="stat-value">{{ summary.totalStatements }}</span>
+          <span class="stat-label">Statements</span>
+        </div>
+        <div class="stat-card stat-teal" [class.loaded]="summary.ontologyLoaded">
+          <span class="stat-value">{{ summary.ontologyLoaded ? '&#x2713;' : '&#x2717;' }}</span>
+          <span class="stat-label">Loaded</span>
+        </div>
+      </div>
+      <div *ngIf="summary?.imports?.length" class="data-block">
+        <h3>Imports</h3>
+        <ul class="imports-list">
+          <li *ngFor="let imp of summary?.imports"><code>{{ imp }}</code></li>
+        </ul>
+      </div>
+      <div *ngIf="summary?.namespaces && getNamespaceEntries().length" class="data-block namespaces">
+        <h3>Namespaces</h3>
+        <div class="namespace-list">
+          <div *ngFor="let ns of getNamespaceEntries()" class="ns-item">
+            <code>{{ ns.key }}</code> &#8594; {{ ns.value }}
+          </div>
+        </div>
+      </div>
+      <div *ngIf="summary?.sampleClasses?.length" class="data-block">
+        <h3>Sample Classes</h3>
+        <div class="sample-list">
+          <span *ngFor="let sc of summary?.sampleClasses" class="sample-chip"><code>{{ shortUri(sc) }}</code></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB: Classes -->
+    <section *ngIf="activeTab === 'classes'" class="section classes-section">
+      <h2>Ontology Classes</h2>
+      <div *ngIf="loading['classes']" class="loader"><span class="spinner"></span> Loading...</div>
+      <div *ngIf="error['classes']" class="error">{{ error['classes'] }}</div>
+      <div *ngIf="!loading['classes'] && !error['classes']" class="classes-layout">
+        <div class="classes-panel">
+          <div class="search-box">
+            <input type="text" placeholder="Search classes..." [value]="classSearch" (input)="classSearch = $any($event.target).value" />
+          </div>
+          <div class="classes-list">
+            <div *ngFor="let cls of filteredClasses" class="class-item"
+                 [class.selected]="selectedClass?.uri === cls.uri"
+                 (click)="selectClass(cls)">
+              <span class="class-name">{{ cls.label || cls.localName }}</span>
+              <span class="class-count">{{ cls.instanceCount }} inst.</span>
+            </div>
+            <p *ngIf="filteredClasses.length === 0" class="empty">No classes found.</p>
+          </div>
+        </div>
+        <div class="class-detail" *ngIf="selectedClass">
+          <h3>{{ selectedClass.label || selectedClass.localName }}</h3>
+          <p class="uri"><code>{{ selectedClass.uri }}</code></p>
+          <div class="hierarchy">
+            <div *ngIf="selectedClass.superClasses?.length" class="hierarchy-block">
+              <strong>Super-classes</strong>
+              <ul>
+                <li *ngFor="let sc of selectedClass.superClasses">{{ sc.label || sc.localName }}</li>
+              </ul>
+            </div>
+            <div *ngIf="selectedClass.subClasses?.length" class="hierarchy-block">
+              <strong>Sub-classes</strong>
+              <ul>
+                <li *ngFor="let sub of selectedClass.subClasses">{{ sub.label || sub.localName }}</li>
+              </ul>
+            </div>
+          </div>
+          <h4>Instances</h4>
+          <div *ngIf="loading['instances_' + selectedClass.localName]" class="loader small"><span class="spinner"></span></div>
+          <div *ngIf="error['instances_' + selectedClass.localName]" class="error">{{ error['instances_' + selectedClass.localName] }}</div>
+          <ul class="instances-list" *ngIf="instances.length">
+            <li *ngFor="let inst of instances">{{ inst.label || inst.localName }}</li>
+          </ul>
+          <p *ngIf="instances.length === 0 && !loading['instances_' + selectedClass.localName]" class="empty">No instances.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB: Properties -->
+    <section *ngIf="activeTab === 'properties'" class="section properties-section">
+      <h2>Properties (Object + Datatype)</h2>
+      <div class="props-toolbar">
+        <label>Object Properties namespace filter:</label>
+        <input type="text" placeholder="coqm or empty = all" [value]="objectPropsFilterNamespace" (input)="objectPropsFilterNamespace = $any($event.target).value" />
+        <button class="btn-small" (click)="reloadObjectProperties()">Apply</button>
+      </div>
+      <div class="props-grid">
+        <div class="prop-block">
+          <h3>Object Properties <span class="api-badge">/object-properties</span></h3>
+          <div *ngIf="loading['objectProps']" class="loader"><span class="spinner"></span></div>
+          <div *ngIf="error['objectProps']" class="error">{{ error['objectProps'] }}</div>
+          <div *ngIf="!loading['objectProps'] && objectProperties.length" class="prop-list">
+            <div *ngFor="let p of objectProperties" class="prop-item expandable">
+              <div class="prop-header">
+                <span class="prop-name">{{ p.label || p.localName }}</span>
+                <span class="prop-meta" *ngIf="p.domain?.length">{{ p.domain?.length }} domain</span>
+                <span class="prop-meta" *ngIf="p.range?.length">{{ p.range?.length }} range</span>
+              </div>
+              <div class="prop-details" *ngIf="(p.domain?.length || p.range?.length)">
+                <div *ngIf="p.domain?.length">Domain: <code *ngFor="let d of (p.domain ?? [])">{{ shortUri(d) }}</code></div>
+                <div *ngIf="p.range?.length">Range: <code *ngFor="let r of (p.range ?? [])">{{ shortUri(r) }}</code></div>
+              </div>
+            </div>
+          </div>
+          <p *ngIf="!loading['objectProps'] && !objectProperties.length" class="empty">No object properties.</p>
+        </div>
+        <div class="prop-block">
+          <h3>Datatype Properties <span class="api-badge">/datatype-properties</span></h3>
+          <div *ngIf="loading['datatypeProps']" class="loader"><span class="spinner"></span></div>
+          <div *ngIf="error['datatypeProps']" class="error">{{ error['datatypeProps'] }}</div>
+          <div *ngIf="!loading['datatypeProps'] && datatypeProperties.length" class="prop-list">
+            <div *ngFor="let p of datatypeProperties" class="prop-item expandable">
+              <div class="prop-header">
+                <span class="prop-name">{{ p.label || p.localName }}</span>
+                <span class="prop-meta" *ngIf="p.domain?.length">{{ p.domain?.length }} domain</span>
+              </div>
+              <div class="prop-details" *ngIf="p.domain?.length">
+                <div>Domain: <code *ngFor="let d of (p.domain ?? [])">{{ shortUri(d) }}</code></div>
+              </div>
+            </div>
+          </div>
+          <p *ngIf="!loading['datatypeProps'] && !datatypeProperties.length" class="empty">No datatype properties.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB: Triples -->
+    <section *ngIf="activeTab === 'triples'" class="section triples-section">
+      <h2>RDF Triples <span class="api-badge">/triples?limit=</span></h2>
+      <div class="triples-toolbar">
+        <label>Limit:</label>
+        <input type="number" min="10" max="1000" [value]="triplesLimit" (input)="triplesLimit = +$any($event.target).value || 200" />
+        <button class="btn-small" (click)="reloadTriples()">Load</button>
+      </div>
+      <div *ngIf="loading['triples']" class="loader"><span class="spinner"></span> Loading...</div>
+      <div *ngIf="error['triples']" class="error">{{ error['triples'] }}</div>
+      <div *ngIf="!loading['triples'] && triples.length" class="triples-table-wrap card-red">
+        <table class="triples-table">
+          <thead>
+            <tr>
+              <th>Subject</th>
+              <th>Predicate</th>
+              <th>Object</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let t of triples">
+              <td><code>{{ shortUri(t.subject) }}</code></td>
+              <td><code>{{ shortUri(t.predicate) }}</code></td>
+              <td><code class="obj-cell">{{ truncate(t.object, 100) }}</code></td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="triples-count">{{ triples.length }} triples displayed</p>
+      </div>
+      <p *ngIf="!loading['triples'] && triples.length === 0" class="empty">No triples.</p>
+    </section>
+
+    <!-- TAB: Diagnostic -->
+    <section *ngIf="activeTab === 'diagnostic'" class="section diagnostic-section">
+      <h2>Diagnostic <span class="api-badge">/diagnostic</span></h2>
+      <div *ngIf="loading['diagnostic']" class="loader"><span class="spinner"></span> Loading...</div>
+      <div *ngIf="error['diagnostic']" class="error">{{ error['diagnostic'] }}</div>
+      <div *ngIf="diagnostic && !loading['diagnostic']" class="diagnostic-grid">
+        <div class="diagnostic-info">
+          <div *ngFor="let e of getDiagnosticEntries()" class="diag-row">
+            <span class="diag-label">{{ e.key }}</span>
+            <span class="diag-value" [class.success]="e.key === 'Status' && e.value === 'success'" [class.err]="e.key === 'Status' && e.value === 'error'">
+              {{ e.value }}
+            </span>
+          </div>
+        </div>
+        <div class="diagnostic-extras" *ngIf="diagnostic.sampleSubjects?.length || diagnostic.sampleClasses?.length">
+          <div *ngIf="diagnostic.sampleSubjects?.length" class="extra-block">
+            <h4>Sample Subjects</h4>
+            <code *ngFor="let s of diagnostic.sampleSubjects">{{ shortUri(s) }}</code>
+          </div>
+          <div *ngIf="diagnostic.samplePredicates?.length" class="extra-block">
+            <h4>Sample Predicates</h4>
+            <code *ngFor="let p of diagnostic.samplePredicates">{{ shortUri(p) }}</code>
+          </div>
+          <div *ngIf="diagnostic.sampleClasses?.length" class="extra-block">
+            <h4>Sample Classes</h4>
+            <div *ngFor="let c of diagnostic.sampleClasses" class="diag-class">
+              {{ c.localName || c.uri }} ({{ c.instanceCount ?? 0 }} inst.)
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB: SPARQL -->
+    <section *ngIf="activeTab === 'sparql'" class="section sparql-section">
+      <h2>SPARQL Query <span class="api-badge">POST /sparql</span></h2>
+      <p class="sparql-desc">Execute SELECT, ASK, or CONSTRUCT queries against the ontology.</p>
+      <div class="sparql-box">
+        <textarea placeholder="PREFIX coqm: &lt;http://www.semanticweb.org/zohraalayani/ontologies/2026/1/coqm#&gt;&#10;SELECT ?s ?p ?o WHERE { ?s ?p ?o } LIMIT 10" [(ngModel)]="sparqlQuery" rows="8"></textarea>
+        <button class="btn-sparql" (click)="executeSparql()">Execute</button>
+      </div>
+      <div *ngIf="loading['sparql']" class="loader"><span class="spinner"></span> Executing...</div>
+      <div *ngIf="error['sparql']" class="error">{{ error['sparql'] }}</div>
+      <div *ngIf="sparqlResult" class="sparql-result">
+        <pre>{{ sparqlResult }}</pre>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>8 APIs — COQM Procurement Dashboard</span>
+  </footer>
+</div>
