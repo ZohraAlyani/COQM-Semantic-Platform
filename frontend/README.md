@@ -1,6 +1,6 @@
-# Time Ontology COQMF - Interface Angular
+#  Ontology COQMF - Interface Angular
 
-Interface Angular qui consomme toutes les APIs de l'ontologie Time COQMF.
+Interface Angular qui consomme toutes les APIs de l'ontologie  COQMF.
 
 ## APIs consommées
 
